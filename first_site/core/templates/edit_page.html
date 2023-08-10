@@ -1,0 +1,74 @@
+{%extends 'index.html'%}
+        {%block content%}
+        <h1 class="mt-4">Admin Panel</h1>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Create New Article
+        </button>
+
+        {%if update%}
+
+        <h2 class="mt-4">Edit Page</h2>
+            {%if success_update%}
+            <p style="color:green">Article Update. Please follow the link below to check the update.</p>
+            {%endif%}
+        <p><a href="{%url 'edit_page'%}">Creating / Editing / Deleting</a></p>
+        <form id="update_data" method="POST">
+            {%csrf_token%}
+            {{form}}
+        </form>
+        <button form="update_data" type="submit" class="btn btn-primary">Update</button>
+
+        {%else%}
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Created Date</th>
+              <th scope="col">Article Name</th>
+              <th scope="col">Editing</th>
+              <th scope="col">Deleting</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for article in list_articles%}
+            <tr>
+              <th>{{article.id}}</th>
+              <td>{{article.create_data}}</td>
+              <td>{{article.name}}</td>
+              <td><a href="{%url 'update_page' article.id%}">Edit</a></td>
+              <td><a href="{%url 'delete_page' article.id%}">Delete</a></td>
+            </tr>
+          {%endfor%}
+          </tbody>
+        </table>
+        {%endif%}
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="add_form" method="POST">
+                    {%csrf_token%}
+                    {{form}}
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button form="add_form" type="submit" class="btn btn-primary">Create</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+{%endblock%}

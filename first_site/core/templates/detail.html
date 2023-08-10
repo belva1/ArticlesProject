@@ -1,0 +1,8 @@
+{%extends 'index.html'%}
+        {%block content%}
+        <h1 class="mt-4">Article:{{get_article.name}} </h1>
+        <p><a href="/">Main page</a></p>
+        <p>Created Date: {{get_article.create_data}}</p>
+        <p>Article Name: {{get_article.name}}</p>
+        <p>Content: {{get_article.text}}</p>
+        {%endblock%}

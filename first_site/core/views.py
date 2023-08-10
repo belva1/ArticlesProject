@@ -1,9 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from .models import Articles
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .forms import ArticleForm
+from .forms import ArticleForm, AuthUserForm, RegisterUserForm
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.models import User
 
 
 class CustomSuccessMessageMixin:
@@ -14,6 +16,20 @@ class CustomSuccessMessageMixin:
     def form_valid(self, form):
         messages.success(self.request, self.success_msg)
         return super().form_valid(form)
+
+
+class MyProjectLoginView(LoginView):
+    template_name = 'login.html'
+    form_class = AuthUserForm
+    success_url = reverse_lazy('edit_page')
+
+
+class MyProjectRegisterView(CreateView):
+    model = User
+    template_name = 'register_page.html'
+    form_class = RegisterUserForm
+    success_url = reverse_lazy('edit_page')
+    success_msg = 'User was created successfully.'
 
 
 class HomeListView(ListView):

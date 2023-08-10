@@ -1,0 +1,10 @@
+{%extends 'index.html'%}
+{%block content%}
+<h1 class="mt-4">Authorization</h1>
+<p><a href="/">Main page</a></p>
+<form id="add_form" method="POST">
+    {%csrf_token%}
+    {{form}}
+<button form="add_form" type="submit" class="btn btn-primary mt-4">Login</button>
+</form>
+{%endblock%}

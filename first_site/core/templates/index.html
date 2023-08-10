@@ -21,9 +21,17 @@
               {%url 'edit_page' as url_edit_page%}
             <a class="nav-link {% if url_edit_page == request.path%}active{%endif%}" href="{{url_edit_page}}">Creating / Editing / Deleting</a>
           </li>
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="#">Creating / Editing / Deleting</a>-->
-<!--          </li>-->
+          <li class="nav-item">
+            {%url 'login_page' as url_login_page%}
+            <a class="nav-link {% if url_login_page == request.path%}active{%endif%}" href="{{url_login_page}}">Authorization</a>
+          </li>
+          <li class="nav-item">
+              {%url 'register_page' as url_register_page%}
+            <a class="nav-link {% if url_register_page == request.path%}active{%endif%}" href="{{url_register_page}}">Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-danger ml-5" href="">Log Out</a>
+          </li>
         </ul>
         {%block content%}
         <h1 class ="mt-4">Articles Page</h1>

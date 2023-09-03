@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
-        fields = '__all__'
+        fields = ('name', 'text')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -37,7 +37,7 @@ class RegisterUserForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
-    def save(self, commit=True):
+    def save(self, commit=True):  # False -> WO changes in the db
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
         if commit:

@@ -5,9 +5,6 @@
         {%if update%}
 
         <h2 class="mt-4">Edit Page</h2>
-<!--            {%if success_update%}-->
-<!--            <p style="color:green">Article Update. Please follow the link below to check the update.</p>-->
-<!--            {%endif%}-->
         <p><a href="{%url 'edit_page'%}">Creating / Editing / Deleting</a></p>
         <form id="update_data" method="POST">
             {%csrf_token%}
@@ -43,19 +40,28 @@
           {% for article in list_articles%}
             <tr>
               <th>{{article.id}}</th>
-              <td>{{article.create_data}}</td>
+              <td>{{article.create_data|date:'n.d.Y'}} - <b>{{article.author}}</b></td>
               <td>{{article.name}}</td>
-              <td><a href="{%url 'update_page' article.id%}">Edit</a></td>
               <td>
-                  <form id="delete_form" action="{%url 'delete_page' article.id%}" method="POST">{%csrf_token%}</form>
-                      <a href="javascript:void()" onclick="delete_question()">Delete</a>
+                  {%if request.user == article.author%}
+                  <a href="{%url 'update_page' article.id%}">Edit</a></td>
+                  {%else%}
+                  <p style="font-size: small; color: #8B0000;">You are unable to edit this article.</p>
+                  {%endif%}
+              <td>
+                  {%if request.user == article.author%}
+                  <form id="delete_form{{article.id}}" action="{%url 'delete_page' article.id%}" method="POST">{%csrf_token%}</form>
+                      <a href="javascript:void()" onclick="delete_question{{article.id}}()">Delete</a>
                       <script>
-                            function delete_question() {
+                            function delete_question{{article.id}}() {
                                 if(confirm("Are you sure?")){
-                                    document.getElementById('delete_form').submit()
+                                    document.getElementById('delete_form{{article.id}}').submit()
                                 }
                             }
                       </script>
+                  {%else%}
+                  <p style="font-size: small; color: #8B0000;">You are unable to delete this article.</p>
+                  {%endif%}
               </td>
             </tr>
           {%endfor%}
@@ -85,8 +91,4 @@
             </div>
           </div>
         </div>
-
-
-
-
 {%endblock%}

@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'practice',
-        'USER': 'valery',
-        'PASSWORD': 'valery',
+        'USER': 'practiceuser',
+        'PASSWORD': 'mypassword',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -126,3 +126,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# LOGIN_URL is a setting in Django that is used to specify the URL
+# that users will be redirected to if they try to access a secure
+# page when they are not authenticated.
+LOGIN_URL = 'login_page'

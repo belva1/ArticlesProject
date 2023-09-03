@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from core import views
+from . import views
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('edit-page/', views.ArticleCreateView.as_view(), name='edit_page'),
     path('update-page/<int:pk>', views.ArticleUpdateView.as_view(), name='update_page'),
     path('delete-page/<int:pk>', views.ArticleDeleteView.as_view(), name='delete_page'),
-    path('login', views.MyProjectLoginView.as_view(), name='login_page'),
-    path('register', views.MyProjectRegisterView.as_view(), name='register_page'),
+    path('login', views.ProjectLoginView.as_view(), name='login_page'),
+    path('register', views.ProjectRegisterView.as_view(), name='register_page'),
+    path('logout', views.ProjectLogoutView.as_view(), name='logout_page'),
 ]

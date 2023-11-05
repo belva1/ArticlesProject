@@ -38,7 +38,7 @@ class RegisterUserForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
 
     def save(self, commit=True):  # False -> WO changes in the db
-        user = super().save(commit=False)
+        user = super().save(commit=False) 
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
